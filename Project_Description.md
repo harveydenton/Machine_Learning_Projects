@@ -47,3 +47,33 @@ The night-vision effect is applied post-model: greyscale conversion using percep
 The backend captures webcam frames at 1080p, processes them through the model at reduced resolution for speed, then upscales with Lanczos interpolation. Temporal smoothing blends consecutive frames to suppress flicker, and a sharpening kernel restores edge detail.
 
 The frontend is a browser-based client served via Flask, sending webcam frames as base64 to a REST API and displaying enhanced results in real time — accessible from any device on the local network.
+# Difference-in-differences: California's organ donor policy
+
+California's 2011 switch to "active choice" for organ donor registration was followed by a **2.25 percentage point drop** in registration relative to other states. This repo estimates that effect with difference-in-differences (DiD) and tests how far it can be trusted.
+
+![California vs other states](figures/raw_trends.png)
+
+## Method
+
+DiD takes the treated group's change over time and subtracts the control group's change over the same period. The first subtraction removes California's permanently lower baseline (27% against 45%). The second removes shocks that hit every state, such as seasonality. It works only if California would have moved in parallel with the other states without the policy.
+
+The data are the `organ_donations` set from [`causaldata`](https://pypi.org/project/causaldata/): 27 states, 6 quarters (Q4 2010 to Q1 2012), with California the only treated state. The notebook runs the same analysis five ways.
+
+| Step | What it does | Result |
+|---|---|---|
+| 2x2 table of means | Four averages, no model | -2.25 pts |
+| Regression, `Rate ~ treat*post` | Same estimate, with standard errors | -2.25 pts (SE 0.006) |
+| Two-way fixed effects | State and quarter dummies, scales to staggered adoption | -2.25 pts (SE 0.0067) |
+| Event study | A coefficient per quarter, tests pre-trends | Drop starts in Q3 2011, stays flat |
+| Placebo test | Assigns the policy to each other state in turn | p = 0.185 |
+
+## Findings
+
+The estimate is identical across the first three specifications, and the timing fits. The event study shows California close to the other states before the policy, then about 2 points lower from Q3 2011 onward, with no gradual build or fade.
+
+The placebo test is the caution. With one treated state, clustered standard errors are too optimistic. Assigning the policy to each untreated state shows California ranks third most negative, behind New Hampshire and South Carolina, and five of the 27 states show a gap at least as large. The data point to a decline and can't rule out chance.
+
+## Limitations
+
+One treated unit, six quarters, only two before the policy, and no covariates. Two pre-period quarters can show consistency with parallel trends but can't establish it.
+
