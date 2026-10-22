@@ -88,5 +88,7 @@ The model is `nn.Transformer` with 4 encoder and 4 decoder layers, 384-dimension
 
 As expected for a run this size, the results were weak. After the first epoch, validation next-token accuracy was 27.7% with a loss of 4.08, and test accuracy was 11.6%. The sample output shows what the model had and hadn't learned. "Une stratégie républicaine pour contrer la réélection d'Obama" came out as "A new strategy for the new economy is to be able to make a more effective way of achieving its own resources". It opens roughly on topic, then drifts into fluent English unrelated to the source. The decoder had picked up English but the attention between the two languages hadn't formed yet.
 
-That makes sense given the scale. 50,000 pairs
+That makes sense given the scale. 50,000 pairs is a tiny fraction of WMT14's roughly 40 million, and a model this size needs far more data and training before translation emerges. Next-token accuracy is also teacher-forced (the model always sees the correct previous word), so it flatters the model. BLEU on decoded sentences would be the proper metric if I scaled this up.
+
+I didn't expect a working translator from this. What I got was a complete pipeline (tokenisation, masking, batching, training loop, decoding) and a much clearer picture of how each Transformer component fits together. Raising `TRAIN_COUNT` and training for longer is the obvious next step.
 
