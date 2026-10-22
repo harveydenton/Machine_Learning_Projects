@@ -1,4 +1,4 @@
-# Feed forward NN for predicting Insurance Claims (*Insurance_Deep_Learning.ipynb*)
+# Feed forward NN for predicting Insurance Claims (`Insurance_Deep_Learning.ipynb`)
 
 This project involved training a feed forward neural network (NN) to predict the possibility of policyholders filing a claim.
 
@@ -22,7 +22,7 @@ I also recognized that NNs are not always suitable for tabular data. A brief att
 
 
 
-# CNN for estimating/solving sudoku puzzles(*Sudoku_CNN.ipynb*)
+# CNN for estimating/solving sudoku puzzles(`Sudoku_CNN.ipynb`)
 
 This project involved training a Convolutional neural network (CNN) to solve sudoku puzzles. This involved using a dataset of 4,000,000 sudoku puzzles with varying difficulty. 
 
@@ -37,7 +37,7 @@ I decided to switch to a CNN since it fitted the grid structure of sudoku which 
 This result was overall a drastic improvement, the test accuracy for cells was 99% for the easiest puzzles and 91% for the harder puzzles. However, the puzzle accuracy was 57% for the easiest puzzles and 0.2% for the harder puzzles. This makes sense however since a correct puzzle requires all empty cells (an amount near 81) to be correct which would require a cell accuracy of essentially 100%.
 
 
-# Real-Time AI Image Intensifier with Deep Learning (*Image_intensifier.ipynb*)
+# Real-Time AI Image Intensifier with Deep Learning (`Image_intensifier.ipynb`)
 
 I built a full-stack deep learning system that transforms live webcam footage into night-vision-style enhanced video in real time.
 
@@ -48,7 +48,7 @@ The night-vision effect is applied post-model: greyscale conversion using percep
 The backend captures webcam frames at 1080p, processes them through the model at reduced resolution for speed, then upscales with Lanczos interpolation. Temporal smoothing blends consecutive frames to suppress flicker, and a sharpening kernel restores edge detail.
 
 The frontend is a browser-based client served via Flask, sending webcam frames as base64 to a REST API and displaying enhanced results in real time — accessible from any device on the local network.
-# Difference-in-differences: California's organ donor policy (*organ_donor_did.ipynb*)
+# Difference-in-differences: California's organ donor policy (`organ_donor_did.ipynb`)
 
 California's 2011 switch to "active choice" for organ donor registration was followed by a **2.25 percentage point drop** in registration relative to other states. This repo estimates that effect with difference-in-differences (DiD) and tests how far it can be trusted.
 
