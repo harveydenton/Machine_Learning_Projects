@@ -1,4 +1,4 @@
-## Feed forward NN for predicting Insurance Claims (**Insurance_Deep_Learning.ipynb**)
+## Feed forward NN for predicting Insurance Claims (*Insurance_Deep_Learning.ipynb*)
 
 This project involved training a feed forward neural network (NN) to predict the possibility of policyholders filing a claim.
 
