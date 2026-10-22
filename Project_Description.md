@@ -78,3 +78,15 @@ The placebo test is the caution. With one treated state, clustered standard erro
 
 One treated unit, six quarters, only two before the policy, and no covariates. Two pre-period quarters can show consistency with parallel trends but can't establish it.
 
+# Transformer for French-to-English translation (`French_to_English_Transformer_colab_.ipynb`)
+
+This was an experiment to see how a Transformer works by building one from scratch in PyTorch and pointing it at French-to-English translation on the WMT14 corpus. The goal was to understand the architecture, not to produce a usable translator.
+
+I kept everything small so it would run quickly in Colab. I streamed 50,000 sentence pairs for training and 200 each for validation and testing, rather than downloading the full dataset. I trained a separate byte-level BPE tokenizer for each language (8,000-token vocabulary), added start and end tokens, capped sequences at 40 tokens, and padded each mini-batch of 32 to its longest sentence.
+
+The model is `nn.Transformer` with 4 encoder and 4 decoder layers, 384-dimensional embeddings, 12 attention heads, and 20% dropout. I wrote the sinusoidal positional encodings myself, since they give the model its only sense of word order. A causal mask stops the decoder from seeing English words it hasn't produced yet, and padding masks keep attention off the filler tokens. Training used Adam (lr 3e-4), cross-entropy that ignores padding, and gradient clipping at 1.0. Translation uses greedy decoding, picking the most likely English subword at each step until the end token.
+
+As expected for a run this size, the results were weak. After the first epoch, validation next-token accuracy was 27.7% with a loss of 4.08, and test accuracy was 11.6%. The sample output shows what the model had and hadn't learned. "Une stratégie républicaine pour contrer la réélection d'Obama" came out as "A new strategy for the new economy is to be able to make a more effective way of achieving its own resources". It opens roughly on topic, then drifts into fluent English unrelated to the source. The decoder had picked up English but the attention between the two languages hadn't formed yet.
+
+That makes sense given the scale. 50,000 pairs
+
