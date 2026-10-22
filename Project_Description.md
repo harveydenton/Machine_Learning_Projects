@@ -22,7 +22,7 @@ I also recognized that NNs are not always suitable for tabular data. A brief att
 
 
 
-## CNN for estimating/solving sudoku puzzles(**Sudoku_CNN.ipynb**)
+## CNN for estimating/solving sudoku puzzles(*Sudoku_CNN.ipynb*)
 
 This project involved training a Convolutional neural network (CNN) to solve sudoku puzzles. This involved using a dataset of 4,000,000 sudoku puzzles with varying difficulty. 
 
@@ -37,7 +37,7 @@ I decided to switch to a CNN since it fitted the grid structure of sudoku which 
 This result was overall a drastic improvement, the test accuracy for cells was 99% for the easiest puzzles and 91% for the harder puzzles. However, the puzzle accuracy was 57% for the easiest puzzles and 0.2% for the harder puzzles. This makes sense however since a correct puzzle requires all empty cells (an amount near 81) to be correct which would require a cell accuracy of essentially 100%.
 
 
-## Real-Time AI Image Intensifier with Deep Learning (**Image_intensifier.ipynb**)
+## Real-Time AI Image Intensifier with Deep Learning (*Image_intensifier.ipynb*)
 
 I built a full-stack deep learning system that transforms live webcam footage into night-vision-style enhanced video in real time.
 
@@ -48,13 +48,13 @@ The night-vision effect is applied post-model: greyscale conversion using percep
 The backend captures webcam frames at 1080p, processes them through the model at reduced resolution for speed, then upscales with Lanczos interpolation. Temporal smoothing blends consecutive frames to suppress flicker, and a sharpening kernel restores edge detail.
 
 The frontend is a browser-based client served via Flask, sending webcam frames as base64 to a REST API and displaying enhanced results in real time — accessible from any device on the local network.
-# Difference-in-differences: California's organ donor policy (**organ_donor_did.ipynb**)
+## Difference-in-differences: California's organ donor policy (*organ_donor_did.ipynb*)
 
 California's 2011 switch to "active choice" for organ donor registration was followed by a **2.25 percentage point drop** in registration relative to other states. This repo estimates that effect with difference-in-differences (DiD) and tests how far it can be trusted.
 
 ![California vs other states](figures/raw_trends.png)
 
-## Method
+# Method
 
 DiD takes the treated group's change over time and subtracts the control group's change over the same period. The first subtraction removes California's permanently lower baseline (27% against 45%). The second removes shocks that hit every state, such as seasonality. It works only if California would have moved in parallel with the other states without the policy.
 
@@ -68,13 +68,13 @@ The data are the `organ_donations` set from [`causaldata`](https://pypi.org/proj
 | Event study | A coefficient per quarter, tests pre-trends | Drop starts in Q3 2011, stays flat |
 | Placebo test | Assigns the policy to each other state in turn | p = 0.185 |
 
-## Findings
+# Findings
 
 The estimate is identical across the first three specifications, and the timing fits. The event study shows California close to the other states before the policy, then about 2 points lower from Q3 2011 onward, with no gradual build or fade.
 
 The placebo test is the caution. With one treated state, clustered standard errors are too optimistic. Assigning the policy to each untreated state shows California ranks third most negative, behind New Hampshire and South Carolina, and five of the 27 states show a gap at least as large. The data point to a decline and can't rule out chance.
 
-## Limitations
+# Limitations
 
 One treated unit, six quarters, only two before the policy, and no covariates. Two pre-period quarters can show consistency with parallel trends but can't establish it.
 
